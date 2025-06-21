@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Онлайн Намаз 3000 — VR Edition</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: white;
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1613977257755-0f4b6b2ed220?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6); /* затемнення */
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 20px;
+      color: #f1f1f1;
+    }
+
+    .mode-button {
+      display: block;
+      margin: 15px auto;
+      padding: 20px 40px;
+      background: #32a852;
+      color: white;
+      font-size: 20px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .mode-button:hover {
+      background: #2a8f45;
+    }
+
+    #output {
+      margin-top: 30px;
+      font-size: 1.5em;
+      color: #f0f0f0;
+    }
+
+    #namaz-img {
+      margin-top: 20px;
+      width: 100px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(20px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>🕌 Онлайн Намаз 3000: VR Edition</h1>
+    <p>Оберіть режим молитви:</p>
+
+    <button class="mode-button" onclick="startNamaz('speedrun')">⚡ Швидкий намаз</button>
+    <button class="mode-button" onclick="startNamaz('bonus')">🎁 Намаз із бонусами</button>
+    <button class="mode-button" onclick="startNamaz('vr')">🌀 VR-режим</button>
+    <button class="mode-button" onclick="startNamaz('desert')">🐫 Бедуїн-режим</button>
+
+    <div id="output"></div>
+    <img src="https://cdn-icons-png.flaticon.com/512/1997/1997875.png" alt="молиться" id="namaz-img" style="display:none;">
+
+    <!-- Звуки -->
+    <audio id="azan" src="https://www.islamcan.com/audio/adhan/azan1.mp3"></audio>
+    <audio id="tick" src="https://www.soundjay.com/clock/sounds/clock-ticking-1.mp3" loop></audio>
+  </div>
+
+  <script>
+    function startNamaz(mode) {
+      const output = document.getElementById('output');
+      const azan = document.getElementById('azan');
+      const tick = document.getElementById('tick');
+      const img = document.getElementById('namaz-img');
+
+      let text = '';
+      if (mode === 'speedrun') text = '🚀 Speedrun! Намаз за 20 секунд!';
+      if (mode === 'bonus') text = '🎉 +10 благочестя! Намаз із бонусами!';
+      if (mode === 'vr') text = '🌀 VR-режим активовано. Вітаємо в мечеті!';
+      if (mode === 'desert') text = '🐪 Ви молитесь у пустелі з верблюдом.';
+
+      output.innerHTML = text;
+      azan.play();
+      tick.play();
+      img.style.display = 'block';
+
+      setTimeout(() => {
+        tick.pause();
+        tick.currentTime = 0;
+        output.innerHTML += '<br>✅ Намаз завершено. Аллаг акбар!';
+      }, 10000);
+    }
+  </script>
+</body>
+</html>
